@@ -1,0 +1,164 @@
+
+<div class="container-fluid px-5">
+    <div class="row  d-felx mx-auto my-2 text-center">
+		<a type="button" name="" id="" href="#/apidemo"class="btn btn-info btn-lg m-auto my-3"><b>API TEST</b></a>
+
+        <button type="button" name="" id="" class="btn btn-success btn-lg m-auto my-3" (click)="listofdevices()"><b>LIST of Devices</b></button>
+    </div>
+	<div class="row">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+                                <label for="screen">Screen Recorder Source</label>
+                                <select #selectedScreenElectron class="form-control" name="screen" id=""  *ngIf="isElectron">
+                                    <option *ngFor="let i of sources">{{i.name}}</option>
+                                  
+                                  </select>
+                                  </div>
+                                  <!-- <button type="button" name="" id="" class="btn btn-success btn-lg btn-block" (click)="selectScreenPopUp()" *ngIf="isElectron"><b>Select Screen</b></button> -->
+								  <a *ngIf="isElectron" name="" id="" class="btn btn-success btn-lg btn-block" href="#/selectScreen" role="button" ><b>Select Screen</b></a>
+                                </div>
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row">
+								<div class="col-md-12">
+						
+									<div class="form-group">
+                                      <label for="webcam">Web Camera Source</label>
+
+                                      <select class="form-control" name="webcam" id="" *ngIf="isElectron">
+                                        <option *ngFor="let i of videodevices">{{i.label}}</option>
+                                      
+                                      </select>
+                                      <select class="form-control" name="webcam" id="" *ngIf="!isElectron">
+                                          <option *ngFor="let i of videodevices">{{i.label}}</option>
+                                        
+                                        </select>
+                                    </div>	
+									<div class="form-group">
+                                        <label for="webcam">Audio Device</label>
+  
+                                        <select class="form-control" name="webcam" id="" *ngIf="isElectron">
+                                          <option *ngFor="let i of audioinput">{{i.label}}</option>
+                                        
+                                        </select>
+                                        <select class="form-control" name="webcam" id="" *ngIf="!isElectron">
+                                            <option *ngFor="let i of audioinput">{{i.label}}</option>
+                                          
+                                          </select>
+                                      </div>	
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>		
+	</div>
+</div>
+
+<hr>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-5">
+			<h3>
+				Screen Recording
+			</h3>
+            <hr>
+            <video #camera  class="w-100 video-filler" style="width: 100%; height: 450px" ></video>
+		</div>
+		<div class="col-md-2  d-flex vertical-center text-center ">
+          <div class="container m-auto  text-center ">
+
+			<div class="row my-2">
+				<div class="col-md-12">
+					 
+					<button type="button" class="btn btn-primary player-btns" (click)="play()">
+						PLAY
+					</button>
+				</div>
+			</div>
+			<div class="row my-2">
+				<div class="col-md-12">
+					 
+					<button type="button" class="btn btn-danger player-btns" (click)="startRecording()">
+						RECORD
+					</button>
+				</div>
+			</div>
+			<div class="row my-2">
+				<div class="col-md-12">
+					 
+					<button type="button" class="btn btn-secondary player-btns" (click)="pause()">
+						STOP
+					</button>
+				</div>
+			</div>
+			<div class="row my-2">
+				<div class="col-md-12">
+					 
+					<button type="button" class="btn btn-warning player-btns" (click)="getMedia()">
+						<b>START STREAM</b>
+					</button>
+				</div>
+                
+			</div>
+            <div class="row my-2">
+                <div class="col-md-12">
+                     
+                    <button type="button" class="btn btn-outline-warning player-btns" (click)="saveStreams()">
+                        <b>SAVE STREAMS</b>
+                    </button>
+                </div>
+                </div>
+        </div>
+		</div>
+		<div class="col-md-5" >
+			<h3>
+				Web Camera
+			</h3>
+            <hr>
+            <video  #webcamera  class="video-filler" style="width: 100%; height: 450px"></video>
+
+		</div>
+	</div>
+</div>
+<hr class="my-2">
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-5">
+                    <h3>SCREEN REPLAY</h3>
+                    <video  #cameraReplay [src]="screenReplay" class="replay-filler" style="width: 100%; height: 450px" controls></video>
+                    <a name="" id="" class="btn btn-outline-warning" [href]="screenReplay" role="button" download>DOWNLOAD</a>
+				</div>
+				<div class="col-md-2 d-flex m-auto text-center">
+                    <div class="container ">
+                        <div class="row   my-2 ">
+                            <button type="button" name="" id="" class="btn btn-primary btn-lg btn-block" (click)="playcameraReplay()"><<=PLAY Screen Recording</button>
+                            
+                        </div>
+                        <div class="row   my-2 ">
+                            <button type="button" name="" id="" class="btn btn-secondary btn-lg  btn-block" (click)="pausecameraReplay()"><<=PAUSE Recording</button>
+                        </div>
+                        <div class="row   my-2">
+                            <button type="button" name="" id="" class="btn btn-outline-primary btn-lg btn-block" (click)="playwebcameraReplay()">PLAY WebCam Recording ==></button>
+                        </div>
+
+                        <div class="row  my-2">
+                            <button type="button" name="" id="" class="btn btn-outline-secondary btn-lg btn-block" (click)="pausewebcameraReplay()">PAUSE WebCam Recording ==></button>
+                        </div>
+                    </div>
+				</div>
+				<div class="col-md-5">
+                    <h3>WEBCAM REPLAY</h3>
+                    <video  #webcameraReplay  [src]="webcamReplay" class="replay-filler" style="width: 100%; height: 450px" controls></video>
+                    <a name="" id="" class="btn btn-outline-success" [href]="webcamReplay" role="button" download>DOWNLOAD</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<hr>
